@@ -26,9 +26,14 @@ final class ViewSectionHeader: UITableViewHeaderFooterView {
     
     private lazy var buttonShare: UIButton = {
         let b = UIButton(forAutoLayout: true)
-        if let image = UIImage(named: "share") {
-            b.setImage(image, for: .normal)
+        if #available(iOS 13.0, *) {
+            if let image = UIImage(systemName: "square.and.arrow.up") {
+                b.setImage(image, for: .normal)
+            } else {
+                b.setTitle("share", for: .normal)
+            }
         } else {
+            // Fallback on earlier versions
             b.setTitle("share", for: .normal)
         }
         b.tintColor = .black
@@ -39,10 +44,15 @@ final class ViewSectionHeader: UITableViewHeaderFooterView {
     
     private lazy var buttonDetail: UIButton = {
         let b = UIButton(forAutoLayout: true)
-        if let image = UIImage(named: "detail") {
-            b.setImage(image, for: .normal)
+        if #available(iOS 13.0, *) {
+            if let image = UIImage(systemName: "line.3.horizontal") {
+                b.setImage(image, for: .normal)
+            } else {
+                b.setTitle("detail", for: .normal)
+            }
         } else {
             b.setTitle("detail", for: .normal)
+            // Fallback on earlier versions
         }
         b.tintColor = .black
         b.contentMode = .scaleAspectFit
